@@ -1,9 +1,7 @@
-package Assignment3;
+package assignment3;
 
 public class Item 
 {
-//Declare variables for this class. Think about its type: public, protected or private?
-
 	protected String name;
 	protected float price;
 	protected int quantity;
@@ -20,14 +18,17 @@ public class Item
 	float calculatePrice () 
 	{
 		float final_price = 0;
-		// Insert price calculation here
+		final_price = (float) (price*1.1 + (20*weight)*quantity);
 		return final_price;
 	}
 	
-
 	void printItemAttributes () 
 	{
-		//Print all applicable attributes of this class
+		System.out.println(
+				"Item: " + this.name + 
+				" Price: " + this.calculatePrice() + 
+				" Quantity: " + this.quantity + 
+				" Weight: " + this.weight);
 	}
 
 }
