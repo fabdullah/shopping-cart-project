@@ -26,9 +26,9 @@ public class Item
 	{
 		System.out.println(
 				"Item: " + this.name + 
-				" Price: " + this.calculatePrice() + 
 				" Quantity: " + this.quantity + 
-				" Weight: " + this.weight);
+				" Price: " + this.calculatePrice()
+				);
 	}
 
 }
