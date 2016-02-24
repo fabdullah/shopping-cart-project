@@ -1,34 +1,64 @@
-package assignment3;
+package Assignment3;
 
 public class Item 
 {
 	protected String name;
-	protected float price;
+	protected double price;
+	protected int weight;
 	protected int quantity;
-	protected float weight;
+	protected double salesTax;
 
-	public Item(String name, float price, int quantity, float weight)
-	{
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.weight = weight;
+
+	public Item() {
+		name = "";
+		price = 0.0;
+		weight = 0;
+		quantity = 0;
+		salesTax = 0.1;
 	}
-	
-	float calculatePrice () 
+
+	public Item(String itemName, double itemPrice, int itemWeight, int itemQuantity) {
+		name = itemName;
+		price = itemPrice;
+		weight = itemWeight;
+		quantity = itemQuantity;
+		salesTax = 0.1;
+	}
+
+
+	public double calculatePrice () 
 	{
-		float final_price = 0;
-		final_price = (float) (price*1.1 + (20*weight)*quantity);
+		double final_price = 0;
+		final_price = applyTax(price * quantity) + shippingCost();
 		return final_price;
 	}
+
 	
-	void printItemAttributes () 
+	protected double applyTax(double in) {
+		return in * (1 + salesTax);
+	}
+
+
+	protected double shippingCost() {
+		return 20 * quantity * weight;
+	}
+
+
+	public void setQuantity(int update) {
+		quantity = update;
+	}
+
+
+	public int getQuantity() { return quantity; }
+
+
+	public String getName() { return name; }
+
+
+	public void printItemAttributes () 
 	{
-		System.out.println(
-				"Item: " + this.name + 
-				" Quantity: " + this.quantity + 
-				" Price: " + this.calculatePrice()
-				);
+		System.out.format("Item: %s\n" + "Price: $%.2f\n" + "Quantity: %d\n" + "Weight: %d\n" + "Total Price: $%.2f\n\n",
+				name, price, quantity, weight, calculatePrice());
 	}
 
 }

@@ -1,29 +1,32 @@
-package assignment3;
+package Assignment3;
 
 public class Grocery extends Item {
 
-	protected boolean perishable;
-	
-	public Grocery(String name, float price, int quantity, float weight, boolean perishable)
-	{
-		super(name, weight, quantity, weight);
-		this.perishable = perishable;
-	}
-		
-	float calculatePrice () 
-	{
-		float final_price = 0;
+	private boolean perishable;
 
-		if(this.perishable == true)
-		{
-		    final_price = (float) (price*1.1 + 1.2*((20*weight)*quantity));
-		}
-		else
-		{
-			final_price = (float) (price*1.1 + (20*weight)*quantity);
-		}
-		
-		return final_price;
+	public Grocery() {
+		super();
+		salesTax = 0.0;
 	}
-	
+
+	public Grocery(String itemName, double itemPrice, int itemWeight, int itemQuantity, String perish) {
+		super(itemName, itemPrice, itemWeight, itemQuantity);
+		perishable = (perish.toUpperCase()).equals("P");
+		salesTax = 0.0;
+	}
+
+
+	protected double shippingCost() {
+		if(perishable)
+			return super.shippingCost() * 0.2;
+		return super.shippingCost();
+	}
+
+
+	public void printItemAttributes ()
+	{
+		System.out.format("Item: %s\n" + "Price: $%.2f\n" + "Quantity: %d\n" + "Weight: %d\n" + "Perishable: %s\n"
+				+ "Total Price: $%.2f\n\n",
+				name, price, quantity, weight, perishable?"yes":"no", calculatePrice());
+	}
 }

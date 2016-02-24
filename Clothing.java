@@ -1,11 +1,14 @@
-package assignment3;
+package Assignment3;
 
 public class Clothing extends Item 
 {
 	
-	public Clothing(String name, float price, int quantity, float weight)
+	public Clothing()
 	{
-		super(name, price, quantity, weight);
+		super();
 	}
-
+	
+	public Clothing(String name, double price, int weigh, int quantity) {
+		super(name, price, weigh, quantity);
+	}
 }
