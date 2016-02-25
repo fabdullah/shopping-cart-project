@@ -1,4 +1,15 @@
-package assignment3;
+/**
+ * Main function, as well as logic tying everything together.
+ * Solves EE422C programming assignment #3
+ * @author Fatima Abdullah, Jai Bock Lee
+ * @version 1.8 2016-2-24
+ * 
+ * UTEID: fa449, jbl932
+ * Lab Section: 11-12:30pm, Lisa Hua
+ * 
+ */
+
+package Assignment3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +60,12 @@ public class A3Driver {
 	  }
   }
   
+  
+  /******************************************************************************
+	* Method Name: performCommand                                             
+	* Purpose: Detects command input word                                       
+	* Returns: None                                                          
+	******************************************************************************/
 
   private static void performCommand(String command, String data){
 	  command = command.trim();
@@ -74,6 +91,13 @@ public class A3Driver {
 	  }
   }
   
+  
+  /******************************************************************************
+	* Method Name: insert                                             
+	* Purpose: Processes insert command                                     
+	* Returns: None                                                          
+	******************************************************************************/
+  
   private static void insert(String data){ 
 	 try{
 		 Item cart_item = createCartItem(data);
@@ -92,6 +116,13 @@ public class A3Driver {
 	 }
 
   }
+  
+  
+  /******************************************************************************
+	* Method Name: search                                             
+	* Purpose: Processes search command                                     
+	* Returns: None                                                          
+	******************************************************************************/
   
   private static void search(String data){
   	// get name
@@ -122,6 +153,13 @@ public class A3Driver {
 	  System.out.println("quantity of " + name + " objects: " + object_quantity);
   }
   
+  
+  /******************************************************************************
+	* Method Name: delete                                             
+	* Purpose: Processes delete command                                     
+	* Returns: None                                                          
+	******************************************************************************/
+  
   private static void delete(String data){
 	// get name
 	  String name;	
@@ -147,6 +185,13 @@ public class A3Driver {
 	  // display results
 	  System.out.println(name + " objects deleted: " + object_count);
   }
+  
+  
+  /******************************************************************************
+	* Method Name: update                                             
+	* Purpose: Processes update command                                     
+	* Returns: None                                                          
+	******************************************************************************/
   
   private static void update(String data){
 	  try{
@@ -198,6 +243,13 @@ public class A3Driver {
 
   }
   
+  
+  /******************************************************************************
+	* Method Name: print                                             
+	* Purpose: Processes print command and prints out shopping receipt                                   
+	* Returns: None                                                          
+	******************************************************************************/
+  
   private static void print(){
 	  Collections.sort(shoppingCart, Item.NameComparator);
 	  
@@ -220,6 +272,13 @@ public class A3Driver {
 	  System.out.print("\n");
 	  
   }
+  
+  
+  /******************************************************************************
+	* Method Name: addCartItem                                             
+	* Purpose: Adds in another product for customer                                   
+	* Returns: None                                                          
+	******************************************************************************/
 
   private static void addCartItem(Item obj){
 	  int obj_quantity = obj.getQuantity(); //quantity of new item
@@ -235,6 +294,13 @@ public class A3Driver {
 	  //item does not exist in the cart
 	  shoppingCart.add(obj);
   }
+  
+  
+  /******************************************************************************
+	* Method Name: createCartItem                                             
+	* Purpose: Adds in another product for customer                                   
+	* Returns: Item type, as specified                                                         
+	******************************************************************************/
   
   private static Item createCartItem(String obj_string){
 	  String[] fields = obj_string.trim().split(" +");

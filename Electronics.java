@@ -1,4 +1,15 @@
-package assignment3;
+/**
+ * Constructor and variables for Electronics subclass, as well as methods
+ * Solves EE422C programming assignment #3
+ * @author Fatima Abdullah, Jai Bock Lee
+ * @version 1.8 2016-2-24
+ * 
+ * UTEID: fa449, jbl932
+ * Lab Section: 11-12:30pm, Lisa Hua
+ * 
+ */
+
+package Assignment3;
 
 import java.util.List;
 import java.util.Arrays;
@@ -20,7 +31,14 @@ public class Electronics extends Item
 		this.fragile = fragile;
 		this.state = state;
 	}
-		
+	
+	
+	/******************************************************************************
+	* Method Name: calculatePrice                                             
+	* Purpose: Calculates price                                       
+	* Returns: Price as float                                                               
+	******************************************************************************/
+	
     @Override
 	float calculatePrice () 
 	{
@@ -43,6 +61,13 @@ public class Electronics extends Item
 		return final_price;
 	}
 	
+    
+    /******************************************************************************
+	* Method Name: validateState                                             
+	* Purpose: Determines if state is tax-free or not                                       
+	* Returns: Boolean stating if it is                                                              
+	******************************************************************************/
+    
 	static boolean validateState (String destination)
 	{
 		if(validStates.contains(destination))
