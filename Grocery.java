@@ -9,18 +9,19 @@ public class Grocery extends Item {
 		super(name, weight, quantity, weight);
 		this.perishable = perishable;
 	}
-		
+	
+    @Override	
 	float calculatePrice () 
 	{
 		float final_price = 0;
 
 		if(this.perishable == true)
 		{
-		    final_price = (float) (price*1.1 + 1.2*((20*weight)*quantity));
+		    final_price = (float) (quantity*price*1.1 + 1.2*((20*weight)*quantity));
 		}
 		else
 		{
-			final_price = (float) (price*1.1 + (20*weight)*quantity);
+			final_price = (float) (quantity*price*1.1 + (20*weight)*quantity);
 		}
 		
 		return final_price;

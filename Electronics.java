@@ -7,7 +7,7 @@ public class Electronics extends Item
 {
 	protected boolean fragile;
 	protected String state;
-	List<String> validStates = Arrays.asList("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", 
+	static List<String> validStates = Arrays.asList("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", 
 			                                 "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", 
 			                                 "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", 
 			                                 "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", 
@@ -16,35 +16,43 @@ public class Electronics extends Item
 	
 	public Electronics(String name, float price, int quantity, float weight, boolean fragile, String state)
 	{
-		super(name, weight, quantity, weight);
+		super(name, price, quantity, weight);
 		this.fragile = fragile;
 		this.state = state;
 	}
 		
+    @Override
 	float calculatePrice () 
 	{
 		float final_price = 0;
 		float tax = 0;
 		
-		if(!validStates.contains(state))
-		{
-			//throw exception
-		}
-		else if(validStates.contains(state) && !noTaxStates.contains(state))
+		if(!noTaxStates.contains(state))
 		{
 			tax = (float) (price*.1);
 		}
 
 		if(this.fragile == true)
 		{
-		    final_price = (float) (price + tax + 1.2*((20*weight)*quantity));
+		    final_price = (float) (quantity*price + quantity*tax + 1.2*((20*weight)*quantity));
 		}
 		else
 		{
-			final_price = (float) (price + tax + (20*weight)*quantity);
+			final_price = (float) (quantity*price + quantity*tax + (20*weight)*quantity);
 		}
-		
 		return final_price;
+	}
+	
+	static boolean validateState (String destination)
+	{
+		if(validStates.contains(destination))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

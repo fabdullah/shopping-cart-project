@@ -1,4 +1,4 @@
-package Assignment3;
+package assignment3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -199,7 +199,7 @@ public class A3Driver {
   }
   
   private static void print(){
-	  Collections.sort(shoppingCart);
+	  Collections.sort(shoppingCart, Item.NameComparator);
 	  
 	  System.out.print("\n");
 	  System.out.println("Printing Shopping Cart Receipt ... ");
@@ -215,7 +215,7 @@ public class A3Driver {
 	  }
 	  
 	  System.out.print("\n");
-	  System.out.println("Total: " + total_price);
+	  System.out.println("Total: " + String.format("%.02f", total_price));
 	  System.out.println("Thank you for shopping at 422CMart. Come again.");
 	  System.out.print("\n");
 	  
@@ -238,7 +238,6 @@ public class A3Driver {
   
   private static Item createCartItem(String obj_string){
 	  String[] fields = obj_string.trim().split(" +");
-	  int fields_count = fields.length;
 	  
 	  String life = ""; 
 	  String destination = ""; 
@@ -247,7 +246,7 @@ public class A3Driver {
 	  float price = Float.parseFloat(fields[2]);
 	  int quantity = Integer.parseInt(fields[3]);
 	  int weight = Integer.parseInt(fields[4]);
-		  
+	  		  
 	  if(price < 0){
 		  throw new IllegalArgumentException(name + " cannot have a negative price!");
 	  }
@@ -259,45 +258,37 @@ public class A3Driver {
 	  }
  
 	  if(category.equals("groceries")){
-		  Grocery grocery = new Grocery(name, price, quantity, weight);
-		  if(fields_count > 5){
-			  life = fields[5].toUpperCase();
-			  if(life.equals("P")){ // perishable groceries
-				  grocery.setPersihable(true);
-			  }
+		  Grocery grocery;
+		  life = fields[5].toUpperCase();
+		  if(life.equals("P")){ // perishable groceries
+			  grocery = new Grocery(name, price, quantity, weight, true);
+		  }
+		  else{
+			  grocery = new Grocery(name, price, quantity, weight, false);
 		  }
 		  return grocery;
 	  }
 	  else if(category.equals("electronics")){
-		  Electronics electronic = new Electronics(name, price, quantity, weight);
-		  if(fields_count == 6){
-			  life = fields[5].toUpperCase();
-			  if(life.equals("F")){ // fragile electronics
-				  electronic.setFragile(true);
-			  }
-			  else if(life.equals("NF")){
-				  electronic.setFragile(false);
-			  }
-			  else{ // user may try to use 5th field as shipping state
-				  destination = fields[5].toUpperCase();
-				  electronic.setStateTax(destination);
-			  }
-		  }
-		  if(fields_count > 6){
-			  life = fields[5].toUpperCase();
-			  destination = fields[6].toUpperCase();
-			  // check for fragile
-			  if(life.equals("F")){
-				  electronic.setFragile(true);
-			  }
-			  electronic.setStateTax(destination);
-		  }
-
-		  if(!Electronics.validState(destination)){
-			  throw new IllegalArgumentException(name + " cannot ship to " + destination);
-		  }
+		  Electronics electronic;
+		  life = fields[5].toUpperCase();
+		  destination = fields[6].toUpperCase();
+		  if(Electronics.validateState(destination)){
+		      if(life.equals("F")){ // fragile electronics
+			      electronic = new Electronics(name, price, quantity, weight, true, destination);
+	    	  }
+	          else if(life.equals("NF")){
+	    	      electronic = new Electronics(name, price, quantity, weight, false, destination);
+		      }
+	          else{ 
+	    	      throw new IllegalArgumentException("Error: Invalid fields in argument");
+		      }
+	      }
+	      else {
+		      throw new IllegalArgumentException(name + " cannot ship to " + destination);
+	      }
 		  return electronic;
 	  }
+
 	  else if(category.equals("clothing")){
 		  Clothing clothing = new Clothing(name, price, quantity, weight);
 		  return clothing;
